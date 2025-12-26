@@ -45,8 +45,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0
-        
+          fetch-depth: 0  # Ensure full history (including tags)
+      - name: Fetch all tags
+        run: git fetch --tags --prune --force
+      - name: Verify fetched tags
+        run: git tag -l  # List all fetched tags for debugging
       - name: Semantic Release
         id: semantic
         uses: cycjimmy/semantic-release-action@v6
